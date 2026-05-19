@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Cart - InterShop</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+body{
+  margin:0;
+  font-family:Poppins;
+  background:#0b0f1a;
+  color:white;
+}
+
+/* HERO STYLE */
+.hero {
+  position:relative;
+  height:40vh;
+  background:url("https://images.unsplash.com/photo-1522778119026-d647f0596c20") center/cover;
+}
+
+.hero::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(to bottom, rgba(0,0,0,0.2), #0b0f1a);
+}
+
+.hero h1{
+  position:absolute;
+  bottom:20px;
+  left:30px;
+  font-size:28px;
+  text-shadow:0 0 10px black;
+}
+
+/* CART BOX */
+.container{
+  display:flex;
+  padding:30px;
+  gap:20px;
+}
+
+.items{
+  flex:2;
+}
+
+.card{
+  background:rgba(255,255,255,0.05);
+  padding:15px;
+  margin-bottom:15px;
+  border-radius:12px;
+  backdrop-filter:blur(10px);
+  transition:0.3s;
+}
+
+.card:hover{
+  transform:scale(1.02);
+  box-shadow:0 0 20px rgba(0,168,255,0.3);
+}
+
+/* SUMMARY */
+.summary{
+  flex:1;
+  background:rgba(255,255,255,0.05);
+  padding:20px;
+  border-radius:12px;
+  backdrop-filter:blur(10px);
+  height:fit-content;
+}
+
+button{
+  width:100%;
+  padding:12px;
+  background:#00a8ff;
+  border:none;
+  color:white;
+  font-weight:bold;
+  border-radius:8px;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+button:hover{
+  background:#0077cc;
+  transform:scale(1.05);
+}
+</style>
+</head>
+
+<body>
+
+<div class="hero">
+  <h1>Your Cart 🛒 Inter Shop</h1>
+</div>
+
+<div class="container">
+
+  <div class="items">
+
+    {% for item in cart %}
+    <div class="card">
+      <h3>{{ item[1] }}</h3>
+      <p>{{ item[2] }} €</p>
+    </div>
+    {% endfor %}
+
+  </div>
+
+  <div class="summary">
+    <h2>Total</h2>
+    <h3>{{ total }} €</h3>
+
+    <a href="/checkout">
+      <button>Proceed to Checkout</button>
+    </a>
+  </div>
+
+</div>
+
+</body>
+</html>

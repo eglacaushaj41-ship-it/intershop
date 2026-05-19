@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Checkout - InterShop</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+body{
+  margin:0;
+  font-family:Poppins;
+  background:#0b0f1a;
+  color:white;
+}
+
+/* HERO FULL SCREEN */
+.hero{
+  height:100vh;
+  width:100%;
+  background:url("https://upload.wikimedia.org/wikipedia/commons/6/6f/Nicol%C3%B2_Barella_2023.jpg") center/cover no-repeat;
+  background-size:cover;
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+/* DARK OVERLAY */
+.hero::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:rgba(0,0,0,0.55);
+}
+
+/* CENTER BOX */
+.box{
+  position:relative;
+  z-index:2;
+  background:rgba(255,255,255,0.08);
+  backdrop-filter:blur(12px);
+  padding:30px;
+  border-radius:15px;
+  width:320px;
+  text-align:center;
+  box-shadow:0 0 25px rgba(0,168,255,0.25);
+}
+
+/* INPUT */
+input{
+  width:100%;
+  padding:12px;
+  margin-top:15px;
+  border:none;
+  border-radius:8px;
+  outline:none;
+}
+
+/* BUTTON */
+button{
+  width:100%;
+  margin-top:15px;
+  padding:12px;
+  border:none;
+  border-radius:8px;
+  background:#00a8ff;
+  color:white;
+  font-weight:bold;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+button:hover{
+  transform:scale(1.05);
+  background:#0077cc;
+}
+
+/* TITLE */
+h2{
+  margin-bottom:10px;
+}
+
+p{
+  font-size:13px;
+  opacity:0.8;
+}
+</style>
+</head>
+
+<body>
+
+<div class="hero">
+
+  <div class="box">
+
+    <h2>Checkout 💳</h2>
+    <p>Secure payment system - InterShop</p>
+
+    <form action="/pay" method="POST">
+      <input type="text" name="iban" placeholder="Enter IBAN (AL...)" required>
+      <button type="submit">Pay Now</button>
+    </form>
+
+  </div>
+
+</div>
+
+</body>
+</html>

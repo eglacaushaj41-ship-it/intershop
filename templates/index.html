@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>InterShop</title>
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+<header>
+  <nav class="navbar">
+
+    <div class="logo">INTERSHOP</div>
+
+    <ul class="nav-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="#products">Shop</a></li>
+      <li><a href="/cart">Cart 🛒 ({{ cart_count }})</a></li>
+    </ul>
+
+  </nav>
+</header>
+
+<!-- SEARCH + FILTER -->
+<div class="top-bar">
+
+  <div class="filters">
+    <a href="/?year=all">All</a>
+    <a href="/?year=1997/98">1997/98</a>
+    <a href="/?year=2008/09">2008/09</a>
+    <a href="/?year=2009/10">2009/10</a>
+    <a href="/?year=2025/26">2025/26</a>
+    <a href="/?year=2026/27">2026/27</a>
+  </div>
+
+  <form method="GET" action="/" class="search-box">
+    <input type="text" name="search" placeholder="Search jerseys...">
+    <button type="submit">Search</button>
+  </form>
+
+</div>
+
+<section class="products" id="products">
+
+  <h2>INTER JERSEYS</h2>
+
+  <div class="product-grid">
+
+    {% for p in products %}
+
+    <div class="product-card">
+
+      <img src="{{ url_for('static', filename='images/' + p[3]) }}">
+
+      <h3>{{ p[1] }}</h3>
+
+      <p class="price">{{ p[2] }}€</p>
+
+      <a href="/add/{{ p[0] }}">
+        <button class="add-cart">Add To Cart</button>
+      </a>
+
+    </div>
+
+    {% endfor %}
+
+  </div>
+
+</section>
+
+<footer>
+  <h3>INTERSHOP</h3>
+  <p>Official Inter Jersey Collection</p>
+</footer>
+
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+</body>
+</html>
