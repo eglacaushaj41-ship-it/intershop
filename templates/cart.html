@@ -5,32 +5,114 @@
 <title>Cart</title>
 
 <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+<style>
+body{
+  background: linear-gradient(135deg, #050505, #0b1b2b);
+  color:white;
+  font-family:Poppins;
+}
+
+/* HERO */
+.hero{
+  height:25vh;
+  background: linear-gradient(90deg, #000, #0a2a4a);
+  display:flex;
+  align-items:center;
+  padding:20px;
+  font-size:22px;
+}
+
+/* CART */
+.container{
+  display:flex;
+  gap:20px;
+  padding:20px;
+}
+
+.items{
+  flex:2;
+}
+
+.card{
+  background: rgba(0,136,255,0.08);
+  border:1px solid rgba(0,136,255,0.2);
+  padding:15px;
+  margin-bottom:15px;
+  border-radius:12px;
+  transition:0.3s;
+}
+
+.card:hover{
+  transform:scale(1.02);
+  box-shadow:0 0 20px rgba(0,136,255,0.3);
+}
+
+/* SUMMARY */
+.summary{
+  flex:1;
+  background: rgba(0,136,255,0.1);
+  padding:20px;
+  border-radius:12px;
+  height:fit-content;
+}
+
+button{
+  width:100%;
+  padding:12px;
+  background:#00a8ff;
+  border:none;
+  color:white;
+  border-radius:8px;
+  cursor:pointer;
+}
+</style>
+
 </head>
 
 <body>
 
-<h1>Your Cart</h1>
-
-{% for item in cart %}
-
-<div class="card">
-
-  <h3>{{ item[1] }}</h3>
-  <p>{{ item[2] }} €</p>
-
-  <a href="/remove/{{ item[0] }}">
-    <button style="background:red;">Remove</button>
-  </a>
-
+<div class="hero">
+  <h1>Your Cart 🛒</h1>
 </div>
 
-{% endfor %}
+<div class="container">
 
-<h2>Total: {{ total }} €</h2>
+  <div class="items">
 
-<a href="/checkout">
-  <button>Checkout</button>
-</a>
+    {% if empty %}
+      <h2>Cart is empty 🛒</h2>
+      <a href="/"><button>Go Shopping</button></a>
+    {% else %}
+
+      {% for item in cart %}
+      <div class="card">
+        <h3>{{ item[1] }}</h3>
+        <p>{{ item[2] }} €</p>
+
+        <a href="/remove/{{ item[0] }}">
+          <button style="background:red;">Remove</button>
+        </a>
+      </div>
+      {% endfor %}
+
+    {% endif %}
+
+  </div>
+
+  <div class="summary">
+    <h2>Total</h2>
+    <h3>{{ total }} €</h3>
+
+    {% if not empty %}
+    <a href="/checkout">
+      <button>Checkout</button>
+    </a>
+    {% endif %}
+
+  </div>
+
+</div>
 
 </body>
 </html>

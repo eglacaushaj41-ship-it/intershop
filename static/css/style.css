@@ -186,3 +186,71 @@ button:hover{
     justify-content:center;
   }
 }
+
+/* =========================
+   CART PAGE (BLACK + BLUE THEME)
+========================= */
+
+body.cart-page{
+  background: linear-gradient(180deg, #02040a, #06122b);
+  color:white;
+}
+
+/* HERO CART */
+.hero{
+  position:relative;
+  height:40vh;
+  background: linear-gradient(135deg, #000000, #001f4d);
+}
+
+.hero::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background: rgba(0, 20, 60, 0.6);
+}
+
+/* CART CONTAINER */
+.container{
+  display:flex;
+  padding:30px 8%;
+  gap:20px;
+}
+
+/* ITEMS */
+.card{
+  background:#0f172a;
+  border:1px solid #1f2a44;
+  padding:15px;
+  margin-bottom:15px;
+  border-radius:12px;
+  transition:0.3s;
+}
+
+.card:hover{
+  transform:scale(1.02);
+  box-shadow:0 0 20px rgba(0,168,255,0.25);
+}
+
+/* SUMMARY BOX */
+.summary{
+  background:#0b1224;
+  border:1px solid #1f2a44;
+  padding:20px;
+  border-radius:12px;
+}
+
+/* BUTTONS */
+button{
+  background:#00a8ff;
+  color:white;
+  border:none;
+  padding:12px;
+  border-radius:8px;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+button:hover{
+  background:#0077cc;
+}

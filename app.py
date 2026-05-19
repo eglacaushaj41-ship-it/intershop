@@ -48,25 +48,22 @@ init_shop_db()
 
 
 # =========================
-# HOME (SEARCH + FILTER)
+# HOME
 # =========================
 @app.route("/")
 def home():
-    search = request.args.get("search")
-    year = request.args.get("year")
 
+    search = request.args.get("search")
     products = get_products()
 
-    # search
     if search:
         products = [p for p in products if search.lower() in p[1].lower()]
 
-    # cart count
-    cart_count = len(session.get("cart", []))
-
-    return render_template("index.html",
-                           products=products,
-                           cart_count=cart_count)
+    return render_template(
+        "index.html",
+        products=products,
+        cart_count=len(session.get("cart", []))
+    )
 
 
 # =========================
@@ -110,14 +107,19 @@ def cart():
     items = []
     total = 0
 
-    for pid in session.get("cart", []):
+    cart_ids = session.get("cart", [])
+
+    for pid in cart_ids:
         if pid in product_map:
             items.append(product_map[pid])
             total += product_map[pid][2]
 
-    return render_template("cart.html",
-                           cart=items,
-                           total=total)
+    return render_template(
+        "cart.html",
+        cart=items,
+        total=total,
+        empty=(len(items) == 0)
+    )
 
 
 # =========================
@@ -151,8 +153,6 @@ def pay():
         return "<h1>Payment Failed ❌ Invalid IBAN</h1><a href='/cart'>Back</a>"
 
 
-# =========================
-# SUCCESS
 # =========================
 @app.route("/success")
 def success():
