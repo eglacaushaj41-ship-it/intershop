@@ -5,6 +5,7 @@ import os
 app = Flask(__name__)
 app.secret_key = "intershop_secret"
 
+
 # =========================
 # PRODUCTS DB
 # =========================
@@ -21,7 +22,6 @@ def get_products():
 # INIT SHOP DB
 # =========================
 def init_shop_db():
-
     conn = sqlite3.connect("shop.db")
     c = conn.cursor()
 
@@ -44,31 +44,29 @@ def init_shop_db():
     conn.close()
 
 
-# RUN DB
 init_shop_db()
 
 
 # =========================
-# HOME
+# HOME (SEARCH + FILTER)
 # =========================
 @app.route("/")
 def home():
-
     search = request.args.get("search")
+    year = request.args.get("year")
 
     products = get_products()
 
-    # SEARCH FILTER (Python side - safer)
+    # search
     if search:
         products = [p for p in products if search.lower() in p[1].lower()]
 
+    # cart count
     cart_count = len(session.get("cart", []))
 
-    return render_template(
-        "index.html",
-        products=products,
-        cart_count=cart_count
-    )
+    return render_template("index.html",
+                           products=products,
+                           cart_count=cart_count)
 
 
 # =========================
@@ -85,6 +83,19 @@ def add_to_cart(id):
 
     session.modified = True
     return redirect("/")
+
+
+# =========================
+# REMOVE FROM CART
+# =========================
+@app.route("/remove/<int:id>")
+def remove_from_cart(id):
+
+    if "cart" in session:
+        session["cart"] = [x for x in session["cart"] if x != id]
+        session.modified = True
+
+    return redirect("/cart")
 
 
 # =========================
@@ -150,4 +161,5 @@ def success():
 
 # =========================
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000, debug=True)
+    port = int(os.environ.get("PORT", 10000))
+    app.run(host="0.0.0.0", port=port)
